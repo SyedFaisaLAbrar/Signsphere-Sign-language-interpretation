@@ -1,17 +1,20 @@
-# Start with a base image that includes Python
 FROM python:3.10-slim
 
-# Set the working directory in the container
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev gcc
+
+# Set the working directory
 WORKDIR /app
 
-# Copy requirements file into the container
+# Copy requirements file
 COPY requirements.txt .
 
-# Install dependencies
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application files
+# Copy application code
 COPY . .
 
-# Set the default command to run the application
+# Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
