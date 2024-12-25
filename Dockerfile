@@ -12,7 +12,7 @@ COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN ./install.sh && pip install -r requirements.txt
 
 # Copy application code
 COPY . .
