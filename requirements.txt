@@ -3,7 +3,7 @@ protobuf==3.19.0
 # keras==2.10.0
 numpy==1.23.5
 mediapipe
-cv2
+opencv-python
 matplotlib==3.7.0
 fastapi
 gunicorn==20.1.0
