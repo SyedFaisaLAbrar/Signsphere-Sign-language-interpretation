@@ -8,8 +8,8 @@ matplotlib==3.7.0
 fastapi
 gunicorn==20.1.0
 scikit-learn==1.1.2
-tensorflow-estimator==2.9.0rc0
-tensorboard==2.9.0
+tensorflow-estimator
+tensorboard
 django-cors-headers==3.13.0
 requests==2.28.1
 google-auth==2.18.0
