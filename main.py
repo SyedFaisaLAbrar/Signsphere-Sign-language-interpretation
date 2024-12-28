@@ -77,6 +77,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def health_check():
+    return {"status": "OK"}
+
 @app.post("/process_video")
 async def process_video(file: UploadFile = File(...)):
     # Save the uploaded video file
