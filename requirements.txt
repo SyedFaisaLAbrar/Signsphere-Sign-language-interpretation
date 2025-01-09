@@ -7,7 +7,7 @@ keras==3.7.0
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.2
 matplotlib==3.6.0
-mediapipe
+mediapipe --no-binary=mediapipe
 numpy==1.26.4
 opencv-contrib-python==4.9.0.80
 pandas==1.5.1
