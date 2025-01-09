@@ -74,7 +74,7 @@ app = FastAPI()
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8000","http://localhost:3000", 
+    allow_origins=["http://localhost:3000", 
                    "https://signsphere-sign-language-interpretation-frontend.vercel.app",],  # React dev server origin
     allow_credentials=True,
     allow_methods=["*"],
