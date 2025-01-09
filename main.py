@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from tensorflow.keras.models import load_model
+
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -54,14 +55,15 @@ def main(video_path: str):
     model_path = 'PSL_Model_v8(81).h5'
 
     # Load the model
-    model = load_model(model_path)
+    # model = load_model(model_path)
 
     # Mediapipe holistic model
     with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
         # Preprocess video
         input_data = preprocess_video(video_path, holistic)
         # Predict
-        prediction = model.predict(input_data)
+        prediction = load_model(model_path).predict(input_data)
+        # print(f"----------------------Prediction : {prediction} ----------")
         action = actions[np.argmax(prediction)]  # Get the action with the highest probability
 
     return action
@@ -72,19 +74,21 @@ app = FastAPI()
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React dev server origin
+    allow_origins=["http://localhost:8000","http://localhost:3000", 
+                   "https://signsphere-sign-language-interpretation-frontend.vercel.app",],  # React dev server origin
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.get("/home")
 def health_check():
     return {"status": "OK"}
 
 @app.post("/process_video")
 async def process_video(file: UploadFile = File(...)):
     # Save the uploaded video file
-    file_location = "uploaded_video.webm"
+    file_location = "uploaded_video.mp4"
     with open(file_location, "wb") as f:
         f.write(await file.read())
 
