@@ -94,5 +94,4 @@ async def process_video(file: UploadFile = File(...)):
 
     # Process the video and get the prediction
     action = main(file_location)
-
     return JSONResponse(content={"message": "Video processed successfully.", "action": action}, status_code=200)
